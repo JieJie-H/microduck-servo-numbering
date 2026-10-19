@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pylibs/
+.venv/
+venv/
+
+# 运行台账 / 本地标记，不提交
+servo_ledger.jsonl
+web/fake_servo_ledger.jsonl
+web/web_state.json
+web/logs/
+# 浏览器测试缓存
+.chrome-*/

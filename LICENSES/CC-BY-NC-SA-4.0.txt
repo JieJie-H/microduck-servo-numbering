@@ -1,0 +1,26 @@
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+(CC BY-NC-SA 4.0)
+
+本目录下的 3D 模型（web/model/model.json、web/model/meshes.bin）以及包含其画面的
+预览图，按 CC BY-NC-SA 4.0 发布。
+
+你可以：
+- 分享：以任何媒介或格式复制、发行本作品；
+- 演绎：修改、转换、基于本作品创作。
+
+但必须遵守：
+- 署名（BY）：注明作者 Pollen Robotics（Microduck 3D 模型）、apirrone（MJCF/STL 来源）、
+  fanhao375（转换与网页模型），并注明许可证；
+- 非商业（NC）：不得将本作品用于商业目的；
+- 相同方式共享（SA）：修改后的作品必须沿用 CC BY-NC-SA 4.0。
+
+许可证全文（官方）：
+https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+人类可读摘要：
+https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+上游：
+- https://github.com/pollen-robotics/microduck_rl
+- https://github.com/apirrone/microduck_rl
+- https://github.com/fanhao375/microduck-replica

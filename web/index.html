@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MicroDuck 舵机编号向导</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">MD</div>
+    <div>
+      <h1>MicroDuck 舵机编号向导</h1>
+      <p>3D 对照 · 一次一颗 · 写入后断电复核</p>
+    </div>
+  </div>
+  <div class="top-right">
+    <label class="port-pick">串口
+      <select id="port"></select>
+    </label>
+    <button id="btn-ports" class="ghost small" title="重新列串口">刷新</button>
+    <div class="progress" title="已写入或手动标记的关节">
+      <div class="bar"><i id="progress-bar"></i></div>
+      <span id="progress-text">0 / 15</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <aside class="left">
+    <div class="panel-head">
+      <h2>编号清单</h2>
+      <button id="btn-next" class="primary small">下一个待编</button>
+    </div>
+    <details class="wiring">
+      <summary>接线速查：脚 1 → S · 脚 2 → V1 · 脚 3 → G</summary>
+      <b>接线（认脚号，不认颜色）</b>
+      <div class="wire-row"><span class="wire-pin">1</span><span>Signal / TTL</span><b>S</b></div>
+      <div class="wire-row"><span class="wire-pin">2</span><span>Vcc</span><b>V1</b></div>
+      <div class="wire-row"><span class="wire-pin">3</span><span>GND</span><b>G</b></div>
+      <p>先插 URT-2 的 USB，再给舵机上电；配 ID 用 USB 5 V 就够，别往 V1 灌 7.4 V。S/G 接反不烧，只是搜不到。</p>
+    </details>
+    <div id="groups" class="groups"></div>
+    <div class="tip">
+      <b>舵机长得一样。</b>编号是写进舵机里的：先在这里选一个关节，再把手里这颗写成它的号，贴上「关节名 + ID」。
+    </div>
+  </aside>
+
+  <section class="viewport" id="viewport">
+    <canvas id="view"></canvas>
+    <div id="labels" class="labels"></div>
+    <div class="view-tools">
+      <button id="btn-reset" class="ghost small">复位视角</button>
+      <button id="btn-rotate" class="ghost small">自动旋转</button>
+      <button id="btn-labels" class="ghost small">显示关节名</button>
+    </div>
+    <div id="hint" class="hint">拖动旋转 · 滚轮缩放 · 点编号选中</div>
+    <div id="error" class="error" hidden></div>
+    <div id="loading" class="loading">正在加载 3D 模型…</div>
+  </section>
+
+  <aside class="right">
+    <div id="card" class="card">
+      <div class="card-top">
+        <div class="card-id"><span id="card-id">—</span></div>
+        <div class="card-title">
+          <div id="card-side" class="side-tag">—</div>
+          <h2 id="card-name">选一个关节</h2>
+          <p id="card-key" class="muted"></p>
+        </div>
+      </div>
+      <div class="loc"><b>位置</b><span id="card-location">—</span></div>
+      <p id="card-hint" class="hint-text"></p>
+
+      <div class="steps">
+        <b>这一颗怎么做</b>
+        <ol>
+          <li>只接这一颗舵机，先插 USB 再上电。</li>
+          <li>点「扫描当前舵机」，确认现在读到的是哪颗。</li>
+          <li>点「写入 ID」，等它重启并复核。</li>
+          <li>断电 → 重新上电 → 再扫描一次，新 ID 还在才算数。</li>
+          <li>贴标签：<b>关节名 + ID</b>，换下一颗。</li>
+        </ol>
+      </div>
+
+      <div class="scan-box">
+        <div class="scan-head"><span>扫描结果</span><span id="scan-status" class="muted">未扫描</span></div>
+        <div id="scan-info" class="scan-info">接好一颗舵机后点下面的「扫描当前舵机」。</div>
+      </div>
+
+      <div class="actions">
+        <button id="btn-scan" class="secondary">扫描当前舵机</button>
+        <button id="btn-assign" class="primary" disabled>写入 ID —</button>
+      </div>
+      <button id="btn-verify" class="ghost wide">总核对（15 颗全接好）</button>
+      <label class="check"><input type="checkbox" id="check-done"> 已贴标签 / 手动标记完成</label>
+      <div id="assign-log" class="assign-log"></div>
+    </div>
+  </aside>
+</main>
+
+<footer id="statusbar" class="statusbar"><span id="status-text">就绪</span></footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
